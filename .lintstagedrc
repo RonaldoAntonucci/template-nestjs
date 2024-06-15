@@ -1,0 +1,4 @@
+{
+  "*.ts": ["eslint --fix", "prettier --write", "jest --findRelatedTests --passWithNoTests"],
+  "*.md": "prettier --list-different"
+}
