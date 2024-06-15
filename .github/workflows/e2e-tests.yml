@@ -1,0 +1,25 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: E2E - tests
+
+on: push
+
+jobs:
+  e2e-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: copy env file
+      run: cp .env.dev .env
+    - name: setup docker compose
+      run: docker compose -f docker-compose.e2e.yml up -d --wait
+    - name: "Running migrations"
+      run: npm run prisma:migrate:dev
+    - name: install ts-jest
+      run: npm install ts-jest
+    - name: "Testing"
+      run: npm run test:e2e:cov      
+

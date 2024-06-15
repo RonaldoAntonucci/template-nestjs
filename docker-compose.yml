@@ -1,0 +1,25 @@
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    volumes:
+      - ./node_modules:/src/app/node_modules
+      - .:/src/app
+    command: npm run start:dev
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - 3000:3333
+      # - 9229:9229
+      - 5556:5555
+      - 4001:4000
+  db:
+    image: postgres
+    env_file:
+      - .env
+    ports:
+      - 35001:5432
