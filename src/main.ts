@@ -40,7 +40,7 @@ async function bootstrap(): Promise<void> {
 
     await app.listen(configService.get('PORT')).then(() => {
         console.log(
-            `Server running on http://localhost:${configService.get('PORT')} at ${new Date().toISOString()}`,
+            `Server running on port:${configService.get('PORT')} at ${new Date().toISOString()}`,
         );
     });
 }
