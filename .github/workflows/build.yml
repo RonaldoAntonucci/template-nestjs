@@ -22,9 +22,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: verify app build
-      run: npm ci
+      run: npm ci --production
     - run: npm run build --if-present
-    - name: generate prisma
-      run: npx prisma generate
       
 
