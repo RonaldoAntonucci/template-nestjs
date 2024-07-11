@@ -6,17 +6,18 @@ import { JwtConfig } from '../jwt.config';
 import { AuthUsecase, RefreshJwtParams } from './auth.usecase';
 import { UnauthorizedException } from '@nestjs/common';
 import { AuthJwtDto } from '../dto/auth-jwt.dto';
+import { MockInstance } from 'vitest';
 
 describe('AuthUsecase', () => {
     let sut: AuthUsecase;
 
     const HashProviderMock = {
-        compare: jest.fn(),
+        compare: vi.fn(),
     };
 
     const jwtServiceMock = {
-        signAsync: jest.fn(),
-        verifyAsync: jest.fn(async () => ({
+        signAsync: vi.fn(),
+        verifyAsync: vi.fn(async () => ({
             custom: {
                 userId: 'id',
                 enterpriseId: 'enterpriseId',
@@ -25,7 +26,7 @@ describe('AuthUsecase', () => {
     };
 
     let prismaMock: PrismaService;
-    let findFirstSpy: jest.SpyInstance;
+    let findFirstSpy: MockInstance;
 
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
@@ -33,7 +34,7 @@ describe('AuthUsecase', () => {
                 {
                     useValue: {
                         user: {
-                            findFirst: jest.fn().mockResolvedValue({
+                            findFirst: vi.fn().mockResolvedValue({
                                 id: 'userId',
                                 passwordHash: 'hash',
                             }),
@@ -71,7 +72,7 @@ describe('AuthUsecase', () => {
 
         jwtServiceMock.signAsync.mockResolvedValue('token');
 
-        findFirstSpy = jest.spyOn(prismaMock.user, 'findFirst');
+        findFirstSpy = vi.spyOn(prismaMock.user, 'findFirst');
     });
 
     it('should be defined.', () => {
