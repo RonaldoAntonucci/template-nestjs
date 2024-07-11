@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "docker compose exec api npx jest --config ./test/jest-e2e.json",
     "test:e2e:cov": "docker compose exec api npx jest --config ./test/jest-e2e.json --coverage",
-    "prepare": "husky",
+    "prepare": "node .husky/install.mjs | true",
     "prisma:migrate:dev": "docker compose exec api npx prisma migrate dev --skip-generate",
     "prisma:migrate:reset": "docker compose exec api npx prisma migrate reset",
     "prisma:migrate:prod": "npx prisma migrate deploy",
