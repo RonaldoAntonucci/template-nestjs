@@ -21,10 +21,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Install Nestjs CLI
-      run: npm install -g @nestjs/cli
     - name: verify app build
       run: npm ci --production
+    - name: Install Nestjs CLI
+      run: npm install -g @nestjs/cli
     - run: npm run build --if-present
       
 
