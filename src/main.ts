@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import metadata from './metadata';
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create(AppModule);
@@ -22,6 +23,8 @@ async function bootstrap(): Promise<void> {
         .setVersion('0.1')
         .addBearerAuth()
         .build();
+
+    await SwaggerModule.loadPluginMetadata(metadata);
     const document = SwaggerModule.createDocument(app, config);
 
     SwaggerModule.setup('docs', app, document);
