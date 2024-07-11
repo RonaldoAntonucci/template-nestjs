@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HealthController } from './health.controller';
 import { TerminusModule } from '@nestjs/terminus';
-import { PrismaService } from 'src/shared/db/prisma.service';
 
 describe('HealthController', () => {
     let controller: HealthController;
@@ -9,7 +8,6 @@ describe('HealthController', () => {
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [TerminusModule],
-            providers: [{ provide: PrismaService, useValue: {} }],
             controllers: [HealthController],
         }).compile();
 

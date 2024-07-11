@@ -17,6 +17,7 @@ export default defineConfig({
                 '**/*.guard.ts',
                 '**/*.decorator.ts',
                 '**/*.entity.ts',
+                '**/*.enum.ts',
                 '**/**sse.**.ts',
                 'main.ts',
                 'metadata.ts',
