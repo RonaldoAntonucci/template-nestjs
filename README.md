@@ -1,6 +1,6 @@
 ## Description
 
-[Qrdapio](https://github.com/users/RonaldoAntonucci/projects/5/views/1) Repositório da api do projeto.
+Template para projetos com nestjs
 
 ## Docs
 A documentação pode ser acessada rodando o projeto localmente.
@@ -11,17 +11,11 @@ A documentação pode ser acessada rodando o projeto localmente.
 
 ```bash
 $ npm install
-$ npm run prepare
-$ npx prisma generate
 ```
 ## Running with docker
-no seu arquivo de terminal(ex: .bashrc, .zshrc) crie uma variavel para o usuário do docker
 ```bash
 # run docker compose
 $ docker compose up
-
-# run migrations
-$ npm run prisma:migrate:dev
 ```
 ## Running the app
 
@@ -42,11 +36,11 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
 # test coverage
 $ npm run test:cov
+
+# test ui
+$ npm run test:ui
 ```
 
 ## Stay in touch
