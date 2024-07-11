@@ -1,8 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Public } from 'src/shared/decorators/public.decorator';
 import { AuthRequest } from 'src/shared/utils/request.interface';
-import { Roles } from './auth.decorator';
+import { Public, Roles } from './auth.decorator';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
