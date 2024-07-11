@@ -1,11 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { HttpStatus, ValidationPipe } from '@nestjs/common';
+import { HttpStatus, ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 import metadata from './metadata';
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create(AppModule);
+
+    app.enableVersioning({
+        type: VersioningType.URI,
+        defaultVersion: '1',
+    });
+
     app.enableCors();
     app.useGlobalPipes(
         new ValidationPipe({
@@ -18,8 +25,8 @@ async function bootstrap(): Promise<void> {
     );
 
     const config = new DocumentBuilder()
-        .setTitle('Qrdapio User')
-        .setDescription('The Qrdapio Client User API')
+        .setTitle('Template Api')
+        .setDescription('The Template API')
         .setVersion('0.1')
         .addBearerAuth()
         .build();
@@ -29,6 +36,12 @@ async function bootstrap(): Promise<void> {
 
     SwaggerModule.setup('docs', app, document);
 
-    await app.listen(process.env.PORT);
+    const configService = app.get(ConfigService);
+
+    await app.listen(configService.get('PORT')).then(() => {
+        console.log(
+            `Server running on http://localhost:${configService.get('PORT')} at ${new Date().toISOString()}`,
+        );
+    });
 }
 bootstrap();
