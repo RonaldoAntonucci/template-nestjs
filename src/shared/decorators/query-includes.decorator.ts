@@ -5,10 +5,9 @@ import {
     isEnum,
     registerDecorator,
 } from 'class-validator';
+import { createObjByStr } from '../utils/create-obj-by-str.util';
 
 type Property = Record<string, string>;
-
-export type IncludesQuery<T extends string> = Partial<Record<T, boolean>>;
 
 export function QueryIncludes<T extends Property>(property: T) {
     return (object: unknown, propertyName: string): void => {
@@ -41,9 +40,11 @@ export class QueryIncludesConstraint<T extends string>
             return false;
         }
 
-        args.object[args.property] = Object.fromEntries(
-            transformedValues.map((value) => [value, true]),
-        );
+        args.object[args.property] = {};
+
+        transformedValues.forEach((value) => {
+            Object.assign(args.object[args.property], createObjByStr(value));
+        });
 
         return true;
     }
