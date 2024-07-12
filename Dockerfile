@@ -12,8 +12,6 @@ RUN npm ci
 
 COPY . .
 
-RUN npx prisma generate
-
 # RUN chmod -R 777 /usr/src/app/node_modules
 # RUN mkdir -p /usr/src/app/node_modules/.vite
 # RUN chmod -R 777 /usr/src/app/node_modules/.vite
@@ -31,8 +29,6 @@ RUN npm ci --production
 COPY . .
 
 RUN npm run build
-
-RUN npx prisma generate
 
 FROM base as production
 
