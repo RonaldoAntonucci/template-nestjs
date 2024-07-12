@@ -17,3 +17,4 @@ README.me
 upgrade-package.sh
 vitest.config.js
 install.sh
+datasource.dev.ts

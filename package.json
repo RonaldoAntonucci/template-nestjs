@@ -21,7 +21,11 @@
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
     "test:e2e": "docker compose exec api npx vitest run --config ./test./vitest-e2e.config.ts",
     "test:e2e:cov": "docker compose exec api npm run test:e2e -- --coverage",
-    "prepare": "node .husky/install.mjs | true"
+    "prepare": "node .husky/install.mjs | true",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "npm run typeorm -- migration:generate src/shared/database/migrations/migrations -d datasource.dev.ts",
+    "migration:run": "npm run typeorm -- migration:run -d datasource.dev.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d datasource.dev.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.10",
@@ -34,8 +38,10 @@
     "argon2": "^0.40.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "pg": "^8.12.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
@@ -53,6 +59,7 @@
     "@types/uuid": "^10.0.0",
     "@vitest/coverage-v8": "^2.0.2",
     "@vitest/ui": "^2.0.2",
+    "dotenv": "^16.4.5",
     "eslint": "^9.6.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",

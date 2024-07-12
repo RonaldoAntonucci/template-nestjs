@@ -20,7 +20,10 @@ services:
       - 9092:9092
   db:
     image: postgres
-    env_file:
-      - .env.dev
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=template
+      - DATABASE_PORT=5432
     ports:
       - 35000:5432
