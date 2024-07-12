@@ -5,21 +5,22 @@ services:
       context: .
       target: development
     volumes:
-      - ./node_modules:/src/app/node_modules
-      - .:/src/app
+      - .:/app
+      - /app/node_modules
     command: npm run start:dev
     depends_on:
       - db
     env_file:
       - .env.dev
     ports:
-      - 3000:3333
+      - 3333:3333
       # - 9229:9229
-      - 5556:5555
-      - 4001:4000
+      - 5555:5555
+      - 4000:4000
+      - 9092:9092
   db:
     image: postgres
     env_file:
       - .env.dev
     ports:
-      - 35001:5432
+      - 35000:5432
