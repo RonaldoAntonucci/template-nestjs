@@ -17,6 +17,18 @@ $ npm install
 # run docker compose
 $ docker compose up
 ```
+
+## Running Migrations
+```bash
+# run migrations
+$ npm run migration:run
+
+# revert migrations
+$ npm run migration:revert
+
+# generate migrations by entities
+$ npm run migration:generate
+```
 ## Running the app
 
 ```bash
