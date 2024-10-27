@@ -1,6 +1,6 @@
 import swc from 'unplugin-swc';
-import { defineConfig, coverageConfigDefaults } from 'vitest/config';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { coverageConfigDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
     test: {
@@ -18,6 +18,7 @@ export default defineConfig({
                 '**/*.decorator.ts',
                 '**/*.entity.ts',
                 '**/*.enum.ts',
+                '**/*.interface.ts',
                 '**/**sse.**.ts',
                 'main.ts',
                 'metadata.ts',
