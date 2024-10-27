@@ -22,8 +22,6 @@ export default defineConfig({
                 '**/**sse.**.ts',
                 'main.ts',
                 'metadata.ts',
-                '**/database/**',
-                '**/health/**',
                 ...coverageConfigDefaults.exclude,
             ],
             provider: 'v8',

@@ -8,6 +8,8 @@ services:
       - .:/app
       - /app/node_modules
     command: npm run start:dev
+    depends_on:
+      - db
     env_file:
       - .env.dev
     ports:
@@ -16,3 +18,12 @@ services:
       - 5555:5555
       - 4000:4000
       - 9092:9092
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=template
+      - DATABASE_PORT=5432
+    ports:
+      - 35000:5432

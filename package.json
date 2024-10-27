@@ -21,7 +21,11 @@
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
     "test:e2e": "docker compose exec api npx vitest run --config ./test./vitest-e2e.config.ts",
     "test:e2e:cov": "docker compose exec api npm run test:e2e -- --coverage",
-    "prepare": "node .husky/install.mjs | true"
+    "prepare": "node .husky/install.mjs | true",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "npm run typeorm -- migration:generate src/shared/database/migrations/migrations -d datasource.dev.ts",
+    "migration:run": "npm run typeorm -- migration:run -d datasource.dev.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d datasource.dev.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.6",
@@ -31,9 +35,11 @@
     "@nestjs/platform-express": "^10.4.6",
     "@nestjs/swagger": "^7.4.2",
     "@nestjs/terminus": "^10.2.3",
+    "@nestjs/typeorm": "^10.0.2",
     "argon2": "^0.41.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "uuid": "^11.0.0"
