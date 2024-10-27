@@ -1,10 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { DatabaseFactory } from './database.factory';
+import { SnakeNamingStrategy } from './database-naming.strategy';
 import { databaseConfig } from './database.config';
+import { DatabaseFactory } from './database.factory';
 
 describe('DatabaseFactory', () => {
     let factory: DatabaseFactory;
+    let namingStrategy: SnakeNamingStrategy;
 
     const config = {
         url: 'url',
@@ -19,10 +21,15 @@ describe('DatabaseFactory', () => {
                     provide: databaseConfig.KEY,
                     useValue: config,
                 },
+                {
+                    provide: SnakeNamingStrategy,
+                    useValue: {},
+                },
             ],
         }).compile();
 
         factory = module.get<DatabaseFactory>(DatabaseFactory);
+        namingStrategy = module.get<SnakeNamingStrategy>(SnakeNamingStrategy);
     });
 
     it('should be defined', () => {
@@ -35,6 +42,7 @@ describe('DatabaseFactory', () => {
         expect(options).toEqual({
             ...config,
             autoLoadEntities: true,
+            namingStrategy,
         });
     });
 });

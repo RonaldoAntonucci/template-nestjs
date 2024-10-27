@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { databaseConfig } from './database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from './database-naming.strategy';
+import { databaseConfig } from './database.config';
 import { DatabaseFactory } from './database.factory';
 
 @Module({
@@ -9,6 +10,7 @@ import { DatabaseFactory } from './database.factory';
         TypeOrmModule.forRootAsync({
             useClass: DatabaseFactory,
             imports: [ConfigModule.forFeature(databaseConfig)],
+            extraProviders: [SnakeNamingStrategy],
         }),
     ],
     exports: [TypeOrmModule],

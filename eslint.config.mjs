@@ -1,7 +1,7 @@
-import globals from 'globals';
 import pluginJs from '@eslint/js';
-import tseslint from 'typescript-eslint';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default [
     { files: ['**/*.{js,mjs,cjs,ts}'] },
@@ -24,6 +24,14 @@ export default [
             'arrow-body-style': 'off',
             'prefer-arrow-callback': 'off',
             'no-console': 'error',
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                {
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                    caughtErrorsIgnorePattern: '^_',
+                },
+            ],
         },
     },
     {
@@ -38,5 +46,5 @@ export default [
         rules: {
             'no-console': 'off',
         },
-    }
+    },
 ];

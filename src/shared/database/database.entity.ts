@@ -9,14 +9,14 @@ export abstract class DatabaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @CreateDateColumn()
+    @CreateDateColumn({ type: 'timestamptz' })
     createdAt: Date;
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({ type: 'timestamptz' })
     updatedAt: Date;
 }
 
 export abstract class SoftDeleteEntity extends DatabaseEntity {
-    @DeleteDateColumn()
+    @DeleteDateColumn({ type: 'timestamptz' })
     deletedAt: Date;
 }
