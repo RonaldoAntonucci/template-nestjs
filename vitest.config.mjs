@@ -16,6 +16,7 @@ export default defineConfig({
                 '**/*.dto.ts',
                 '**/*.guard.ts',
                 '**/*.decorator.ts',
+                '**/*.types.ts',
                 '**/*.entity.ts',
                 '**/*.enum.ts',
                 '**/*.interface.ts',
