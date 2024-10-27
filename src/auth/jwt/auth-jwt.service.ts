@@ -1,16 +1,11 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtRefreshTokenConfig, JwtTokenConfig } from './auth.config';
-import { JwtService } from '@nestjs/jwt';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { RefreshJwtDto } from './auth.dto';
-
-export type AuthJwtResponse = {
-    token: string;
-    refreshToken: string;
-};
+import { JwtService } from '@nestjs/jwt';
+import { JwtRefreshTokenConfig, JwtTokenConfig } from '../auth.config';
+import { AuthJwt } from '../auth.types';
 
 @Injectable()
-export class AuthService {
+export class AuthJwtService {
     constructor(
         private readonly jwtService: JwtService,
         @Inject(JwtTokenConfig.KEY)
@@ -20,9 +15,8 @@ export class AuthService {
             typeof JwtRefreshTokenConfig
         >,
     ) {}
-    async generateAuthJwt(
-        payload: Record<string, unknown>,
-    ): Promise<AuthJwtResponse> {
+
+    async execute(payload: Record<string, unknown>): Promise<AuthJwt> {
         const custom = payload;
         const [token, refreshToken] = await Promise.all([
             this.jwtService.signAsync(
@@ -49,19 +43,5 @@ export class AuthService {
             token,
             refreshToken,
         };
-    }
-
-    async refreshToken({ token }: RefreshJwtDto): Promise<{
-        token: string;
-        refreshToken: string;
-    }> {
-        const { custom } = await this.jwtService
-            .verifyAsync(token, {
-                secret: this.refreshTokenConfig.secret,
-            })
-            .catch(() => {
-                throw new UnauthorizedException();
-            });
-        return this.generateAuthJwt(custom);
     }
 }
